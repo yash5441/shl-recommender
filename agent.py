@@ -364,18 +364,25 @@ def call_gemini(messages: List[Message], catalog_context: str) -> str:
 # Response parsing + validation
 # ---------------------------------------------------------------------------
 def parse_and_validate(raw: str) -> ChatResponse:
-    """Parse Gemini JSON output, validate URLs against catalog."""
-    # Strip markdown fences if present despite JSON mode
-    clean = re.sub(r"^```json\s*", "", raw.strip())
+    clean = raw.strip()
+    clean = re.sub(r"^```json\s*", "", clean)
     clean = re.sub(r"^```\s*", "", clean)
     clean = re.sub(r"\s*```$", "", clean).strip()
 
+    # Sometimes Gemini wraps in extra text before the JSON
+    # Try to extract just the JSON object
+    json_match = re.search(r'\{.*\}', clean, re.DOTALL)
+    if json_match:
+        clean = json_match.group(0)
+
     try:
         data = json.loads(clean)
-    except json.JSONDecodeError as e:
-        print(f"[Agent] JSON parse error: {e}\nRaw: {raw[:200]}")
+    except json.JSONDecodeError:
+        # Last resort: try to extract reply text at minimum
+        reply_match = re.search(r'"reply"\s*:\s*"([^"]+)"', clean)
+        reply = reply_match.group(1) if reply_match else "Could you please rephrase that?"
         return ChatResponse(
-            reply="I had trouble forming a response.",
+            reply=reply,
             recommendations=[],
             end_of_conversation=False,
         )
@@ -397,13 +404,11 @@ def parse_and_validate(raw: str) -> ChatResponse:
         if not name:
             continue
 
-        # URL validation: if not in catalog, try to fix via name lookup
         if url not in valid_urls:
             match = retriever.get_by_name(name)
             if match:
                 url = match["url"]
                 test_type = match["test_type"]
-                print(f"[Agent] Fixed URL for '{name}' via name lookup.")
             else:
                 print(f"[Agent] Skipping hallucinated: '{name}' | '{url}'")
                 continue
@@ -415,7 +420,6 @@ def parse_and_validate(raw: str) -> ChatResponse:
         recommendations=validated[:10],
         end_of_conversation=end_of_conversation,
     )
-
 
 # ---------------------------------------------------------------------------
 # Fallback: direct retrieval when LLM gives empty recs near turn limit
