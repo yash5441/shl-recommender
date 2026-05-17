@@ -13,8 +13,6 @@ from typing import List, Dict, Any
 
 BASE_URL = "http://localhost:8000"
 TIMEOUT = 30  # match evaluator timeout
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-print(f"[Startup] GEMINI_API_KEY loaded: {bool(GEMINI_API_KEY)} | length: {len(GEMINI_API_KEY)}")
 
 # ---------------------------------------------------------------------------
 # Test framework helpers

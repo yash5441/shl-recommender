@@ -23,9 +23,10 @@ from retriever import retriever, JOB_LEVEL_ALIASES
 # ---------------------------------------------------------------------------
 # Now this will successfully grab the key from your .env file
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+print(f"[Startup] GEMINI_API_KEY loaded: {bool(GEMINI_API_KEY)} | length: {len(GEMINI_API_KEY)}")
 
 # You can switch this back to the newer model now!
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-2.0-flash-lite"
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
