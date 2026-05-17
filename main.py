@@ -14,7 +14,8 @@ from fastapi.responses import JSONResponse
 from models import ChatRequest, ChatResponse, HealthResponse
 from agent import run_agent
 from retriever import retriever
-
+from dotenv import load_dotenv
+load_dotenv()
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
