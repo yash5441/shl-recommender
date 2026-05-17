@@ -401,6 +401,8 @@ def parse_and_validate(raw: str) -> ChatResponse:
         url = str(rec.get("url", "")).strip()
         test_type = str(rec.get("test_type", "A")).strip().upper()
 
+        print(f"[Validate] Checking: '{name}' | '{url}'")
+
         if not name:
             continue
 
@@ -409,8 +411,9 @@ def parse_and_validate(raw: str) -> ChatResponse:
             if match:
                 url = match["url"]
                 test_type = match["test_type"]
+                print(f"[Validate] Fixed via name lookup: {url}")
             else:
-                print(f"[Agent] Skipping hallucinated: '{name}' | '{url}'")
+                print(f"[Validate] Skipping hallucinated: '{name}' | '{url}'")
                 continue
 
         validated.append(Recommendation(name=name, url=url, test_type=test_type))
