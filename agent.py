@@ -34,6 +34,18 @@ if GEMINI_API_KEY:
 # ---------------------------------------------------------------------------
 # Intent signals
 # ---------------------------------------------------------------------------
+# agent.py - add this near the top
+
+REQUIRED_INFO = {
+    "job_role":    ["developer", "engineer", "manager", "analyst", "sales", "designer",
+                    "executive", "director", "ceo", "cxo", "leader", "consultant",
+                    "recruiter", "accountant", "nurse", "teacher", "officer", "rep",
+                    "associate", "coordinator", "specialist", "architect", "devops",
+                    "data scientist", "product manager", "marketing"],
+    "seniority":   ["entry", "junior", "graduate", "mid", "senior", "experienced",
+                    "manager", "lead", "director", "executive", "vp", "cxo", "ceo",
+                    "intern", "fresher", "years", "level"],
+}
 COMPARE_SIGNALS = [
     "difference", "compare", "vs", "versus", "better than", "prefer",
     "which one", "what's the diff", "how does", "compared to", "distinguish",
@@ -87,6 +99,23 @@ ROLE_HINTS = [
 # ---------------------------------------------------------------------------
 # Intent classification
 # ---------------------------------------------------------------------------
+def has_enough_context(messages: List[Message]) -> tuple[bool, str]:
+    """
+    Check if the conversation has enough info to make a recommendation.
+    Returns (ready, missing_dimension).
+    """
+    all_user_text = " ".join(
+        m.content.lower() for m in messages if m.role == "user"
+    )
+
+    has_role = any(word in all_user_text for word in REQUIRED_INFO["job_role"])
+    has_seniority = any(word in all_user_text for word in REQUIRED_INFO["seniority"])
+
+    if not has_role:
+        return False, "job_role"
+    if not has_seniority:
+        return False, "seniority"
+    return True, ""
 def classify_intent(messages: List[Message]) -> str:
     """Returns: 'clarify' | 'recommend' | 'refine' | 'compare' | 'out_of_scope'"""
     if not messages:
@@ -436,16 +465,13 @@ def _force_recommendations(messages: List[Message]) -> List[Recommendation]:
 # Main entry point
 # ---------------------------------------------------------------------------
 def run_agent(messages: List[Message]) -> ChatResponse:
-    """
-    Process the full conversation history and return the next agent reply.
-    """
     if not messages:
         return ChatResponse(
             reply=(
                 "Hello! I'm your SHL Assessment Recommender. "
                 "Tell me about the role you're hiring for — job title, seniority level, "
-                "and any specific skills or behaviours you want to evaluate — and I'll "
-                "suggest the right SHL assessments."
+                "and the key skills or behaviours you want to assess — and I'll suggest "
+                "the right SHL assessments from the catalog."
             ),
             recommendations=[],
             end_of_conversation=False,
@@ -463,35 +489,34 @@ def run_agent(messages: List[Message]) -> ChatResponse:
 
     print(f"[Agent] Turn {turn_count} | Intent: {intent}")
 
-    # Hard out-of-scope refusal — no LLM call needed
+    # Hard out-of-scope refusal
     if intent == "out_of_scope":
         return ChatResponse(
             reply=(
-                "I can only help with selecting SHL assessments for hiring. "
+                "I can only help with selecting SHL assessments. "
                 "I'm not able to assist with general hiring advice, legal questions, "
-                "salary guidance, or anything outside the SHL product catalog. "
+                "or anything outside the SHL product catalog. "
                 "What role are you looking to assess candidates for?"
             ),
             recommendations=[],
             end_of_conversation=False,
         )
 
-    if intent == "clarify":
-        if turn_count < 7:
-            return ChatResponse(
-                reply=_build_clarify_reply(messages),
-                recommendations=[],
-                end_of_conversation=False,
-            )
-        intent = "recommend"
-        print("[Agent] Near turn limit — forcing recommend intent.")
+    # ---------------------------------------------------------------
+    # CORE LOGIC: check if we have enough context to recommend
+    # ---------------------------------------------------------------
+    ready, missing = has_enough_context(messages)
 
-    if intent == "compare":
-        return ChatResponse(
-            reply=_build_compare_reply(messages),
-            recommendations=[],
-            end_of_conversation=False,
-        )
+    # Force clarify if not ready (unless near turn limit)
+    if not ready and turn_count < 7:
+        intent = "clarify"
+        print(f"[Agent] Not enough context — missing: {missing}. Forcing clarify.")
+
+    # Force recommend if near turn limit regardless
+    if turn_count >= 7:
+        intent = "recommend"
+        ready = True
+        print("[Agent] Turn limit approaching — forcing recommend.")
 
     catalog_context = build_catalog_context(messages, intent)
 
@@ -499,27 +524,41 @@ def run_agent(messages: List[Message]) -> ChatResponse:
         raw = call_gemini(messages, catalog_context)
     except Exception as e:
         print(f"[Agent] Gemini error: {e}")
-        response = ChatResponse(
+        forced = _force_recommendations(messages)
+        return ChatResponse(
             reply="I couldn't reach the AI service, so I'm using the catalog directly.",
-            recommendations=[],
+            recommendations=forced,
             end_of_conversation=False,
         )
 
-    else:
-        response = parse_and_validate(raw)
+    response = parse_and_validate(raw)
 
-    # Safety net: force recs whenever the model omits them.
-    if not response.recommendations and intent in {"recommend", "refine"}:
+    # ---------------------------------------------------------------
+    # HARD ENFORCEMENT: if not ready, always wipe recommendations
+    # No matter what Gemini returns
+    # ---------------------------------------------------------------
+    if not ready:
+        if response.recommendations:
+            print(f"[Agent] Wiped {len(response.recommendations)} premature recs — context incomplete.")
+        response.recommendations = []
+        response.end_of_conversation = False
+
+    # ---------------------------------------------------------------
+    # HARD ENFORCEMENT: if reply has a question, wipe recommendations
+    # Cannot ask and recommend simultaneously
+    # ---------------------------------------------------------------
+    if "?" in response.reply:
+        if response.recommendations:
+            print(f"[Agent] Wiped recs — reply contains a question.")
+        response.recommendations = []
+        response.end_of_conversation = False
+
+    # Safety net at turn limit
+    if turn_count >= 7 and not response.recommendations:
         forced = _force_recommendations(messages)
         if forced:
             response.recommendations = forced
-            if intent == "refine":
-                response.reply = "I've updated the shortlist based on your new constraint."
-            elif not response.reply.strip():
-                response.reply = "Here are the closest SHL matches from the catalog."
-        print(f"[Agent] Forced {len(forced)} recommendations.")
-    elif not response.reply.strip():
-        response.reply = "Here are the closest SHL matches from the catalog."
+            response.reply += "\n\nBased on what you've shared, here are my best recommendations:"
 
     print(
         f"[Agent] Reply: {response.reply[:80]}... | "
