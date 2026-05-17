@@ -4,6 +4,7 @@ Loaded once at startup; all queries served from memory.
 """
 
 import json
+import os
 from typing import List, Dict, Optional
 
 import chromadb
@@ -39,9 +40,9 @@ class CatalogRetriever:
     def __init__(self):
         self.assessments: List[Dict] = []
         self._client = chromadb.Client()
-        self._ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name=EMBEDDING_MODEL
-        )
+        api_key = os.environ.get("GEMINI_API_KEY", "")
+        self._ef = embedding_functions.GoogleGenerativeAiEmbeddingFunction(api_key=api_key)
+
         self._collection = None
         self._loaded = False
         # Fast lookup by URL and by name
