@@ -378,7 +378,7 @@ def parse_and_validate(raw: str) -> ChatResponse:
     try:
         data = json.loads(clean)
     except json.JSONDecodeError:
-        # Last resort: try to extract reply text at minimum
+        print(f"[Parse] Raw Gemini output: {raw[:500]}")
         reply_match = re.search(r'"reply"\s*:\s*"([^"]+)"', clean)
         reply = reply_match.group(1) if reply_match else "Could you please rephrase that?"
         return ChatResponse(
