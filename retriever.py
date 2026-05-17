@@ -99,14 +99,12 @@ class CatalogRetriever:
             item = {**a, "relevance_score": round(float(scores[idx]), 4)}
             output.append(item)
 
-        # Soft boost by type
         if filter_types:
             def sort_type(x):
                 has_type = any(t in x["test_types"] for t in filter_types)
                 return (0 if has_type else 1, -x["relevance_score"])
             output.sort(key=sort_type)
 
-        # Soft boost by job level
         if filter_job_level:
             def sort_level(x):
                 has_level = filter_job_level in x["job_levels"]
