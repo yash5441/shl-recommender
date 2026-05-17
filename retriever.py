@@ -15,7 +15,7 @@ import google.generativeai as genai
 from catalog import load_catalog, build_search_document
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-EMBEDDING_MODEL = "models/text-embedding-004"  # Google's best free embedding model
+EMBEDDING_MODEL = "models/embedding-001"  # Google's best free embedding model
 
 JOB_LEVEL_ALIASES: Dict[str, str] = {
     "entry":       "Entry-Level",
@@ -118,8 +118,8 @@ class CatalogRetriever:
                 result = genai.embed_content(
                     model=EMBEDDING_MODEL,
                     content=batch,
-                    task_type="retrieval_document",
                 )
+                
                 embeddings.extend(result["embedding"])
                 print(f"  Embedded {min(i + batch_size, len(self._documents))}/{len(self._documents)}")
 
@@ -137,7 +137,6 @@ class CatalogRetriever:
             result = genai.embed_content(
                 model=EMBEDDING_MODEL,
                 content=query,
-                task_type="retrieval_query",
             )
             query_embedding = np.array(result["embedding"]).reshape(1, -1)
 
