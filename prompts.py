@@ -71,7 +71,7 @@ No markdown. No preamble. No text outside the JSON object.
 
 RULES for the JSON fields:
 - "reply": always a helpful, natural-sounding message. Never empty.
-- "recommendations": EMPTY LIST [] when still clarifying, refusing, or answering a comparison without committing to a shortlist. Array of 1–10 items when you have committed to a shortlist.
+- "recommendations": MUST BE EMPTY LIST [] when your reply contains a question. If you are asking the user anything at all, recommendations MUST be []. Only populate recommendations when you are making a final commitment to a shortlist with no follow-up question.
 - "end_of_conversation": true ONLY when you have delivered a final shortlist and the task is complete. Otherwise false.
 """
 
