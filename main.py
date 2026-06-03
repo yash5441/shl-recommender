@@ -15,6 +15,10 @@ from models import ChatRequest, ChatResponse, HealthResponse
 from agent import run_agent
 from retriever import retriever
 from dotenv import load_dotenv
+
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 load_dotenv()
 # ---------------------------------------------------------------------------
 # Logging
@@ -70,6 +74,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/")
+async def frontend():
+    return FileResponse("static/index.html")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # ---------------------------------------------------------------------------

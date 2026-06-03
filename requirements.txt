@@ -7,3 +7,4 @@ beautifulsoup4==4.12.3
 pydantic==2.10.3
 python-dotenv==1.0.1
 numpy==1.26.4
+aiofiles==23.2.1
