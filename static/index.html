@@ -39,7 +39,6 @@
     overflow: hidden;
   }
 
-  /* Animated background */
   body::before {
     content: '';
     position: fixed;
@@ -113,8 +112,8 @@
     align-items: center;
     gap: 8px;
     padding: 11px 16px;
-    background: linear-gradient(135deg, var(--accent)18, var(--accent2)12);
-    border: 1px solid var(--accent)40;
+    background: linear-gradient(135deg, #00e5a018, #7c6cfa12);
+    border: 1px solid #00e5a040;
     border-radius: var(--radius-sm);
     color: var(--accent);
     font-family: var(--font-body);
@@ -127,8 +126,8 @@
   }
 
   .new-chat-btn:hover {
-    background: linear-gradient(135deg, var(--accent)28, var(--accent2)20);
-    border-color: var(--accent)80;
+    background: linear-gradient(135deg, #00e5a028, #7c6cfa20);
+    border-color: #00e5a080;
   }
 
   .new-chat-btn svg { flex-shrink: 0; }
@@ -170,9 +169,9 @@
     margin-top: 1px;
   }
 
-  .cap-icon.green { background: #00e5a015; }
+  .cap-icon.green  { background: #00e5a015; }
   .cap-icon.purple { background: #7c6cfa15; }
-  .cap-icon.blue { background: #4090ff15; }
+  .cap-icon.blue   { background: #4090ff15; }
   .cap-icon.orange { background: #ff820015; }
 
   .cap-title {
@@ -214,10 +213,10 @@
 
   @keyframes pulse {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    50%       { opacity: 0.4; }
   }
 
-  /* ── MAIN CHAT ── */
+  /* ── MAIN ── */
   .main {
     display: flex;
     flex-direction: column;
@@ -231,7 +230,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--surface)90;
+    background: rgba(17,17,24,0.9);
     backdrop-filter: blur(12px);
     flex-shrink: 0;
   }
@@ -261,10 +260,7 @@
     border: 1px solid var(--border);
   }
 
-  .turn-bar {
-    display: flex;
-    gap: 3px;
-  }
+  .turn-bar { display: flex; gap: 3px; }
 
   .turn-pip {
     width: 16px;
@@ -292,7 +288,7 @@
   .messages-wrap::-webkit-scrollbar-track { background: transparent; }
   .messages-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-  /* Welcome screen */
+  /* Welcome */
   .welcome {
     display: flex;
     flex-direction: column;
@@ -307,8 +303,8 @@
   .welcome-icon {
     width: 72px;
     height: 72px;
-    background: linear-gradient(135deg, var(--accent)20, var(--accent2)20);
-    border: 1px solid var(--accent)30;
+    background: linear-gradient(135deg, #00e5a020, #7c6cfa20);
+    border: 1px solid #00e5a030;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -354,12 +350,12 @@
   }
 
   .chip:hover {
-    border-color: var(--accent)60;
+    border-color: #00e5a060;
     color: var(--accent);
-    background: var(--accent)08;
+    background: #00e5a008;
   }
 
-  /* Message bubbles */
+  /* Bubbles */
   .message {
     display: flex;
     gap: 12px;
@@ -367,16 +363,12 @@
     max-width: 800px;
   }
 
-  .message.user {
-    flex-direction: row-reverse;
-    align-self: flex-end;
-  }
-
+  .message.user  { flex-direction: row-reverse; align-self: flex-end; }
   .message.agent { align-self: flex-start; width: 100%; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .avatar {
@@ -400,8 +392,8 @@
   }
 
   .avatar.agent-av {
-    background: linear-gradient(135deg, var(--accent)30, var(--accent2)20);
-    border: 1px solid var(--accent)30;
+    background: linear-gradient(135deg, #00e5a030, #7c6cfa20);
+    border: 1px solid #00e5a030;
   }
 
   .bubble {
@@ -413,8 +405,8 @@
   }
 
   .message.user .bubble {
-    background: linear-gradient(135deg, var(--accent2)25, #4090ff15);
-    border: 1px solid var(--accent2)40;
+    background: linear-gradient(135deg, #7c6cfa25, #4090ff15);
+    border: 1px solid #7c6cfa40;
     border-radius: var(--radius) 4px var(--radius) var(--radius);
     color: var(--text);
   }
@@ -429,7 +421,7 @@
 
   .agent-content { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
-  /* Recommendations */
+  /* Recs */
   .recs-section { display: flex; flex-direction: column; gap: 10px; }
 
   .recs-label {
@@ -447,7 +439,7 @@
     content: '';
     flex: 1;
     height: 1px;
-    background: linear-gradient(to right, var(--accent)30, transparent);
+    background: linear-gradient(to right, #00e5a030, transparent);
   }
 
   .rec-card {
@@ -464,7 +456,7 @@
   }
 
   .rec-card:hover {
-    border-color: var(--accent)60;
+    border-color: #00e5a060;
     background: #0f2520;
     transform: translateX(3px);
   }
@@ -473,8 +465,8 @@
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent)20, var(--accent2)15);
-    border: 1px solid var(--accent)25;
+    background: linear-gradient(135deg, #00e5a020, #7c6cfa15);
+    border: 1px solid #00e5a025;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -507,10 +499,10 @@
     font-size: 10px;
     padding: 2px 7px;
     border-radius: 4px;
-    background: var(--accent)12;
+    background: #00e5a012;
     color: var(--accent);
     font-weight: 500;
-    border: 1px solid var(--accent)20;
+    border: 1px solid #00e5a020;
   }
 
   .rec-url {
@@ -528,19 +520,9 @@
     transition: color 0.2s, transform 0.2s;
   }
 
-  .rec-card:hover .rec-arrow {
-    color: var(--accent);
-    transform: translateX(3px);
-  }
+  .rec-card:hover .rec-arrow { color: var(--accent); transform: translateX(3px); }
 
-  /* Type labels */
-  .type-labels {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  /* Typing indicator */
+  /* Typing */
   .typing {
     display: flex;
     gap: 12px;
@@ -570,27 +552,27 @@
 
   @keyframes bounce {
     0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-6px); opacity: 1; }
+    30%            { transform: translateY(-6px); opacity: 1; }
   }
 
-  /* EOC banner */
+  /* EOC */
   .eoc-banner {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 12px 16px;
-    background: var(--accent)10;
-    border: 1px solid var(--accent)30;
+    background: #00e5a010;
+    border: 1px solid #00e5a030;
     border-radius: var(--radius-sm);
     font-size: 13px;
     color: var(--accent);
   }
 
-  /* ── INPUT AREA ── */
+  /* ── INPUT ── */
   .input-area {
     padding: 20px 32px 24px;
     border-top: 1px solid var(--border);
-    background: var(--surface)90;
+    background: rgba(17,17,24,0.9);
     backdrop-filter: blur(12px);
     flex-shrink: 0;
   }
@@ -607,8 +589,8 @@
   }
 
   .input-wrap:focus-within {
-    border-color: var(--accent)60;
-    box-shadow: 0 0 0 3px var(--accent)08;
+    border-color: #00e5a060;
+    box-shadow: 0 0 0 3px #00e5a008;
   }
 
   #messageInput {
@@ -642,9 +624,9 @@
     color: #000;
   }
 
-  .send-btn:hover { transform: scale(1.05); box-shadow: 0 4px 16px var(--accent)40; }
+  .send-btn:hover  { transform: scale(1.05); box-shadow: 0 4px 16px #00e5a040; }
   .send-btn:active { transform: scale(0.96); }
-  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 
   .input-hint {
     font-size: 11px;
@@ -653,130 +635,14 @@
     text-align: center;
   }
 
-  /* ── API CONFIG MODAL ── */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: #000000b0;
-    backdrop-filter: blur(8px);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.2s ease;
-  }
-
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 32px;
-    width: 440px;
-    max-width: 90vw;
-    animation: slideUp 0.3s ease;
-  }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .modal h2 {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .modal p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-
-  .modal label {
-    display: block;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-  }
-
-  .modal input {
-    width: 100%;
-    padding: 11px 14px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 16px;
-  }
-
-  .modal input:focus { border-color: var(--accent)60; }
-
-  .modal-actions { display: flex; gap: 10px; }
-
-  .btn-primary {
-    flex: 1;
-    padding: 11px;
-    background: linear-gradient(135deg, var(--accent), #00c07a);
-    border: none;
-    border-radius: var(--radius-sm);
-    color: #000;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover { opacity: 0.9; }
-
-  .btn-secondary {
-    padding: 11px 20px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
-    font-family: var(--font-body);
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
-
-  /* ── CONFIG BUTTON ── */
-  .config-btn {
-    width: 34px;
-    height: 34px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text-muted);
-    transition: all 0.2s;
-  }
-  .config-btn:hover { border-color: var(--accent)50; color: var(--accent); }
-
-  /* Error toast */
+  /* Toast */
   .toast {
     position: fixed;
     bottom: 24px;
     right: 24px;
     padding: 12px 18px;
-    background: var(--danger)20;
-    border: 1px solid var(--danger)40;
+    background: #ff475720;
+    border: 1px solid #ff475740;
     border-radius: var(--radius-sm);
     color: var(--danger);
     font-size: 13px;
@@ -785,7 +651,6 @@
     max-width: 320px;
   }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .app { grid-template-columns: 1fr; }
     .sidebar { display: none; }
@@ -851,7 +716,7 @@
     <div class="sidebar-footer">
       <div class="status-indicator">
         <div class="status-dot" id="statusDot"></div>
-        <span id="statusText">Connecting...</span>
+        <span id="statusText">Connecting…</span>
       </div>
     </div>
   </aside>
@@ -863,30 +728,22 @@
         <div class="chat-header-title">Assessment Recommender</div>
         <div class="chat-header-sub">Powered by SHL Catalog · RAG + Gemini</div>
       </div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <div class="turn-counter">
-          <span>Turns</span>
-          <div class="turn-bar" id="turnBar">
-            <div class="turn-pip"></div>
-            <div class="turn-pip"></div>
-            <div class="turn-pip"></div>
-            <div class="turn-pip"></div>
-            <div class="turn-pip"></div>
-            <div class="turn-pip"></div>
-            <div class="turn-pip"></div>
-            <div class="turn-pip"></div>
-          </div>
+      <div class="turn-counter">
+        <span>Turns</span>
+        <div class="turn-bar" id="turnBar">
+          <div class="turn-pip"></div>
+          <div class="turn-pip"></div>
+          <div class="turn-pip"></div>
+          <div class="turn-pip"></div>
+          <div class="turn-pip"></div>
+          <div class="turn-pip"></div>
+          <div class="turn-pip"></div>
+          <div class="turn-pip"></div>
         </div>
-        <button class="config-btn" onclick="showConfig()" title="Configure API">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-          </svg>
-        </button>
       </div>
     </header>
 
     <div class="messages-wrap" id="messagesWrap">
-      <!-- Welcome screen -->
       <div class="welcome" id="welcomeScreen">
         <div class="welcome-icon">🎯</div>
         <h1>Find the Right Assessment</h1>
@@ -921,78 +778,47 @@
   </main>
 </div>
 
-<!-- Config Modal -->
-<div class="modal-overlay" id="configModal">
-  <div class="modal">
-    <h2>⚙️ API Configuration</h2>
-    <p>Enter your deployed SHL Recommender API URL. This is the base URL of your Render service.</p>
-    <label>API Base URL</label>
-    <input type="text" id="apiUrlInput" placeholder="https://shl-recommender-xhn5.onrender.com" />
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="hideConfig()">Cancel</button>
-      <button class="btn-primary" onclick="saveConfig()">Save & Connect</button>
-    </div>
-  </div>
-</div>
-
 <script>
-  // ── STATE ──
+  // ─────────────────────────────────────────
+  // All API calls use RELATIVE URLs so the
+  // frontend works on whatever host serves it.
+  // No separate API URL is needed or stored.
+  // ─────────────────────────────────────────
+
   const TYPE_LABELS = {
-    A: 'Ability & Aptitude', B: 'Biodata & SJT', C: 'Competencies',
-    D: 'Development & 360', E: 'Exercises', K: 'Knowledge & Skills',
-    M: 'Motivation', P: 'Personality', S: 'Simulations'
+    A: 'Ability & Aptitude',
+    B: 'Biodata & SJT',
+    C: 'Competencies',
+    D: 'Development & 360',
+    E: 'Exercises',
+    K: 'Knowledge & Skills',
+    M: 'Motivation',
+    P: 'Personality',
+    S: 'Simulations',
   };
 
-  let apiUrl = localStorage.getItem('shl_api_url') || '';
   let conversationHistory = [];
   let isLoading = false;
-  const res = await fetch(`${apiUrl}/health`, { signal: AbortSignal.timeout(10000) });
 
-  window.onload = () => {
-      checkHealth();
-  };
+  // ── HEALTH CHECK (runs after page loads) ──
+  window.addEventListener('DOMContentLoaded', checkHealth);
 
-  // ── HEALTH CHECK ──
   async function checkHealth() {
     try {
-      const res = await fetch(`/health`, { signal: AbortSignal.timeout(10000) });
+      const res = await fetch('/health', { signal: AbortSignal.timeout(10000) });
       const data = await res.json();
-      if (data.status === 'ok') {
-        setStatus(true, 'API Connected');
-      } else {
-        setStatus(false, 'API Error');
-      }
+      setStatus(data.status === 'ok', data.status === 'ok' ? 'API Connected' : 'API Error');
     } catch {
       setStatus(false, 'API Unreachable');
     }
   }
 
   function setStatus(ok, text) {
-    const dot = document.getElementById('statusDot');
+    const dot   = document.getElementById('statusDot');
     const label = document.getElementById('statusText');
-    dot.style.background = ok ? 'var(--accent)' : 'var(--danger)';
-    dot.style.boxShadow = ok ? '0 0 6px var(--accent)' : '0 0 6px var(--danger)';
-    label.textContent = text;
-  }
-
-  // ── CONFIG ──
-  function showConfig() {
-    document.getElementById('configModal').style.display = 'flex';
-    document.getElementById('apiUrlInput').value = apiUrl;
-    setTimeout(() => document.getElementById('apiUrlInput').focus(), 100);
-  }
-
-  function hideConfig() {
-    if (apiUrl) document.getElementById('configModal').style.display = 'none';
-  }
-
-  function saveConfig() {
-    const val = document.getElementById('apiUrlInput').value.trim().replace(/\/$/, '');
-    if (!val) return;
-    apiUrl = val;
-    localStorage.setItem('shl_api_url', apiUrl);
-    document.getElementById('configModal').style.display = 'none';
-    checkHealth();
+    dot.style.background  = ok ? 'var(--accent)' : 'var(--danger)';
+    dot.style.boxShadow   = ok ? '0 0 6px var(--accent)' : '0 0 6px var(--danger)';
+    label.textContent     = text;
   }
 
   // ── CHAT ──
@@ -1034,58 +860,55 @@
 
   async function sendMessage() {
     if (isLoading) return;
-    if (!apiUrl) { showConfig(); return; }
 
     const input = document.getElementById('messageInput');
-    const text = input.value.trim();
+    const text  = input.value.trim();
     if (!text) return;
 
-    const turnCount = conversationHistory.length;
-    if (turnCount >= 8) {
+    if (conversationHistory.length >= 8) {
       showToast('Maximum 8 turns reached. Start a new conversation.');
       return;
     }
 
-    // Hide welcome
+    // Remove welcome screen on first message
     const welcome = document.getElementById('welcomeScreen');
     if (welcome) welcome.remove();
 
-    // Add user message
+    // Optimistically add user message
     conversationHistory.push({ role: 'user', content: text });
-    appendMessage('user', text);
+    appendUserMessage(text);
     input.value = '';
     input.style.height = 'auto';
     updateTurnBar(conversationHistory.length);
 
-    // Show typing
     const typingEl = appendTyping();
     isLoading = true;
     document.getElementById('sendBtn').disabled = true;
 
     try {
-      const res = await fetch(`/chat`, {
+      const res = await fetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: conversationHistory }),
         signal: AbortSignal.timeout(35000),
       });
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+      if (!res.ok) {
+        const errText = await res.text().catch(() => `HTTP ${res.status}`);
+        throw new Error(errText || `HTTP ${res.status}`);
+      }
 
+      const data = await res.json();
       typingEl.remove();
 
-      // Add assistant message to history
       conversationHistory.push({ role: 'assistant', content: data.reply });
       updateTurnBar(conversationHistory.length);
-
-      // Render response
       appendAgentMessage(data);
 
     } catch (err) {
       typingEl.remove();
-      showToast(`Error: ${err.message}. Check your API URL and try again.`);
-      conversationHistory.pop(); // Remove failed user message
+      conversationHistory.pop(); // roll back failed user message
+      showToast(`Error: ${err.message}`);
     } finally {
       isLoading = false;
       document.getElementById('sendBtn').disabled = false;
@@ -1093,13 +916,14 @@
     }
   }
 
-  function appendMessage(role, content) {
+  // ── RENDER HELPERS ──
+
+  function appendUserMessage(content) {
     const wrap = document.getElementById('messagesWrap');
-    const el = document.createElement('div');
-    el.className = `message ${role}`;
-    const initials = role === 'user' ? 'You' : '🤖';
+    const el   = document.createElement('div');
+    el.className = 'message user';
     el.innerHTML = `
-      <div class="avatar ${role === 'user' ? 'user-av' : 'agent-av'}">${initials}</div>
+      <div class="avatar user-av">You</div>
       <div class="bubble">${escapeHtml(content)}</div>
     `;
     wrap.appendChild(el);
@@ -1108,19 +932,19 @@
 
   function appendAgentMessage(data) {
     const wrap = document.getElementById('messagesWrap');
-    const el = document.createElement('div');
+    const el   = document.createElement('div');
     el.className = 'message agent';
 
     let recsHtml = '';
     if (data.recommendations && data.recommendations.length > 0) {
       const cards = data.recommendations.map((rec, i) => `
-        <a href="${rec.url}" target="_blank" rel="noopener" class="rec-card" style="animation-delay:${i * 0.06}s">
-          <div class="rec-badge">${rec.test_type}</div>
+        <a href="${escapeAttr(rec.url)}" target="_blank" rel="noopener" class="rec-card" style="animation-delay:${i * 0.06}s">
+          <div class="rec-badge">${escapeHtml(rec.test_type)}</div>
           <div class="rec-info">
             <div class="rec-name">${escapeHtml(rec.name)}</div>
             <div class="rec-meta">
-              <span class="rec-type-tag">${TYPE_LABELS[rec.test_type] || rec.test_type}</span>
-              <span class="rec-url">${rec.url.replace('https://www.shl.com', '')}</span>
+              <span class="rec-type-tag">${escapeHtml(TYPE_LABELS[rec.test_type] || rec.test_type)}</span>
+              <span class="rec-url">${escapeHtml(rec.url.replace('https://www.shl.com', ''))}</span>
             </div>
           </div>
           <svg class="rec-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1132,8 +956,10 @@
       recsHtml = `
         <div class="recs-section">
           <div class="recs-label">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            ${data.recommendations.length} Assessment${data.recommendations.length > 1 ? 's' : ''} Recommended
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            ${data.recommendations.length} Assessment${data.recommendations.length !== 1 ? 's' : ''} Recommended
           </div>
           ${cards}
         </div>
@@ -1166,13 +992,11 @@
 
   function appendTyping() {
     const wrap = document.getElementById('messagesWrap');
-    const el = document.createElement('div');
+    const el   = document.createElement('div');
     el.className = 'typing';
     el.innerHTML = `
       <div class="avatar agent-av">🤖</div>
-      <div class="typing-dots">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
     `;
     wrap.appendChild(el);
     scrollToBottom();
@@ -1180,12 +1004,9 @@
   }
 
   function updateTurnBar(count) {
-    const pips = document.querySelectorAll('.turn-pip');
-    pips.forEach((pip, i) => {
+    document.querySelectorAll('.turn-pip').forEach((pip, i) => {
       pip.className = 'turn-pip';
-      if (i < count) {
-        pip.classList.add(count >= 7 ? 'warn' : 'used');
-      }
+      if (i < count) pip.classList.add(count >= 7 ? 'warn' : 'used');
     });
   }
 
@@ -1196,11 +1017,15 @@
 
   function escapeHtml(text) {
     return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
+      .replace(/&/g,  '&amp;')
+      .replace(/</g,  '&lt;')
+      .replace(/>/g,  '&gt;')
+      .replace(/"/g,  '&quot;')
       .replace(/\n/g, '<br>');
+  }
+
+  function escapeAttr(text) {
+    return String(text).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
   function showToast(msg) {
@@ -1212,12 +1037,6 @@
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 5000);
   }
-
-  // Enter in config modal
-  document.getElementById('apiUrlInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') saveConfig();
-  });
 </script>
 </body>
 </html>
-```
