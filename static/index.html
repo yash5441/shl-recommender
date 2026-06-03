@@ -946,20 +946,16 @@
   let apiUrl = localStorage.getItem('shl_api_url') || '';
   let conversationHistory = [];
   let isLoading = false;
+  const res = await fetch(`${apiUrl}/health`, { signal: AbortSignal.timeout(10000) });
 
-  // ── INIT ──
   window.onload = () => {
-    if (!apiUrl) {
-      showConfig();
-    } else {
       checkHealth();
-    }
   };
 
   // ── HEALTH CHECK ──
   async function checkHealth() {
     try {
-      const res = await fetch(`${apiUrl}/health`, { signal: AbortSignal.timeout(10000) });
+      const res = await fetch(`/health`, { signal: AbortSignal.timeout(10000) });
       const data = await res.json();
       if (data.status === 'ok') {
         setStatus(true, 'API Connected');
@@ -1067,7 +1063,7 @@
     document.getElementById('sendBtn').disabled = true;
 
     try {
-      const res = await fetch(`${apiUrl}/chat`, {
+      const res = await fetch(`/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: conversationHistory }),
