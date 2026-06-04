@@ -16,8 +16,8 @@ from agent import run_agent
 from retriever import retriever
 from dotenv import load_dotenv
 
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+#from fastapi.staticfiles import StaticFiles
+#from fastapi.responses import FileResponse
 
 load_dotenv()
 # ---------------------------------------------------------------------------
@@ -80,7 +80,7 @@ app.add_middleware(
 async def frontend():
     return FileResponse("static/index.html")
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+#app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # ---------------------------------------------------------------------------
