@@ -76,9 +76,9 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def frontend():
-    return FileResponse("static/index.html")
+#@app.get("/")
+#async def frontend():
+ #   return FileResponse("static/index.html")
 
 #app.mount("/static", StaticFiles(directory="static"), name="static")
 
